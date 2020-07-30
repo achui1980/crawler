@@ -1,12 +1,12 @@
 package com.achui.crawler.controller;
 
+import com.achui.crawler.spider.core.BrigePage;
+import com.achui.crawler.spider.core.LoginPage;
 import com.achui.crawler.util.WebDriverPool;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,20 +32,23 @@ public class DemoSpider {
         String loginBtn = "//*[@id=\"app\"]/div/form/button";
         WebDriver webDriver = pool.getWebDriverFromPool();
         /******************** Login *************************/
-        webDriver.get(url);
-        WebElement usernameEle = ((ChromeDriver) webDriver).findElementByXPath(userInput);
-        WebElement passwordEle = ((ChromeDriver) webDriver).findElementByXPath(passwordInput);
-        WebElement loginEle = ((ChromeDriver) webDriver).findElementByXPath(loginBtn);
-        //usernameEle.sendKeys(userName);
-        //passwordEle.sendKeys(password);
-        loginEle.click();
+        LoginPage loginPage = new LoginPage(webDriver);
+        loginPage.setUrl(url);
+        loginPage.setLoginBtnXpath(loginBtn);
+        loginPage.setPassword(password);
+        loginPage.setUserName(userName);
+        loginPage.setUserNameInputXpath(userInput);
+        loginPage.setPasswordInputXpath(passwordInput);
+        loginPage.processPage();
         /******************** Login *************************/
 
         /******************** Got To Search Page *************************/
-        WebElement tableMenu = pool.getWebDriverFactory().getWait().until(d -> d.findElement(By.xpath("//*[@id=\"app\"]/div/div[1]/div/div[1]/div/ul/div[9]/li")));
-        tableMenu.click();
-        WebElement table = pool.getWebDriverFactory().getWait().until(d -> d.findElement(By.xpath("//*[@id=\"app\"]/div/div[1]/div/div[1]/div/ul/div[9]/li/ul/div[4]/a/li")));
-        table.click();
+//        WebElement tableMenu = pool.getWebDriverFactory().getWait().until(d -> d.findElement(By.xpath("//*[@id=\"app\"]/div/div[1]/div/div[1]/div/ul/div[9]/li")));
+//        tableMenu.click();
+//        WebElement table = pool.getWebDriverFactory().getWait().until(d -> d.findElement(By.xpath("//*[@id=\"app\"]/div/div[1]/div/div[1]/div/ul/div[9]/li/ul/div[4]/a/li")));
+//        table.click();
+        BrigePage brigePage = new BrigePage(webDriver);
+        brigePage.processPage();
         /******************** Got To Search Page *************************/
 
         /******************** Search Result *************************/
