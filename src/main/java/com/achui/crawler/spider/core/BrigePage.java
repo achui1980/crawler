@@ -24,7 +24,7 @@ public class BrigePage extends Page {
         table.click();
         WebElement searchBtn = webDriverWait.until(d -> d.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/section/div/div[1]/button[1]")));
         WebElement searchInput = webDriverWait.until(d -> d.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/section/div/div[1]/div[1]/input")));
-        searchInput.sendKeys("F");
+        //searchInput.sendKeys("F");
         searchBtn.click();
         return null;
     }

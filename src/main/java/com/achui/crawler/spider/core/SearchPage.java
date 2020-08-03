@@ -23,11 +23,19 @@ public class SearchPage extends Page {
         webDriverWait.until(ExpectedConditions.not(ExpectedConditions.visibilityOf(mask)));
         WebElement nextPage = webDriver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/section/div/div[3]/div/button[2]"));
         while (nextPage.getAttribute("disabled") == null) {
-            //TODO: Business Login
+            //TODO: Business logic
+            processLogic();
             nextPage.click();
             mask = webDriver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/section/div/div[2]/div[5]"));
             webDriverWait.until(ExpectedConditions.not(ExpectedConditions.visibilityOf(mask)));
         }
+        //Process last page;
+        processLogic();
+        return null;
+    }
+    private String processLogic() {
+        WebElement titleElement = webDriver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/section/div/div[2]/div[3]/table/tbody/tr[1]/td[3]/div/span[1]"));
+        System.out.println(titleElement.getText());
         return null;
     }
 }

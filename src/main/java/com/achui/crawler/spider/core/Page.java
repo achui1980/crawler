@@ -28,4 +28,26 @@ public class Page {
     public String processDetailPage() {
         return null;
     }
+
+    public void login() {
+
+    }
+
+    public void bridgePage() {
+
+    }
+
+    public void doSearch() {
+
+    }
+
+    public void scrape() {
+        //login
+        login();
+        //go to bridgePage
+        bridgePage();
+        //do search
+        doSearch();
+        //out put to
+    }
 }

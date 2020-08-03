@@ -2,6 +2,7 @@ package com.achui.crawler.controller;
 
 import com.achui.crawler.spider.core.BrigePage;
 import com.achui.crawler.spider.core.LoginPage;
+import com.achui.crawler.spider.core.SearchPage;
 import com.achui.crawler.util.WebDriverPool;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
@@ -52,24 +53,26 @@ public class DemoSpider {
         /******************** Got To Search Page *************************/
 
         /******************** Search Result *************************/
-        WebElement searchBtn = pool.getWebDriverFactory().getWait().until(d -> d.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/section/div/div[1]/button[1]")));
-        WebElement searchInput = pool.getWebDriverFactory().getWait().until(d -> d.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/section/div/div[1]/div[1]/input")));
-        searchInput.sendKeys("F");
-        searchBtn.click();
+//        WebElement searchBtn = pool.getWebDriverFactory().getWait().until(d -> d.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/section/div/div[1]/button[1]")));
+//        WebElement searchInput = pool.getWebDriverFactory().getWait().until(d -> d.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/section/div/div[1]/div[1]/input")));
+//        searchInput.sendKeys("F");
+//        searchBtn.click();
 
-        WebElement mask = webDriver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/section/div/div[2]/div[5]"));
-        pool.getWebDriverFactory().getWait().until(ExpectedConditions.not(ExpectedConditions.visibilityOf(mask)));
-        /******************** Search Result *************************/
-        //TODO: get data from first page
-        WebElement nextPage = webDriver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/section/div/div[3]/div/button[2]"));
-        while (nextPage.getAttribute("disabled") == null) {
-            nextPage.click();
-            mask = webDriver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/section/div/div[2]/div[5]"));
-            pool.getWebDriverFactory().getWait().until(ExpectedConditions.not(ExpectedConditions.visibilityOf(mask)));
-            //TODO get data from second page
-        }
+//        WebElement mask = webDriver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/section/div/div[2]/div[5]"));
+//        pool.getWebDriverFactory().getWait().until(ExpectedConditions.not(ExpectedConditions.visibilityOf(mask)));
+//        /******************** Search Result *************************/
+//        //TODO: get data from first page
+//        WebElement nextPage = webDriver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/section/div/div[3]/div/button[2]"));
+//        while (nextPage.getAttribute("disabled") == null) {
+//            nextPage.click();
+//            mask = webDriver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/section/div/div[2]/div[5]"));
+//            pool.getWebDriverFactory().getWait().until(ExpectedConditions.not(ExpectedConditions.visibilityOf(mask)));
+//            //TODO get data from second page
+//        }
+        SearchPage searchPage = new SearchPage(webDriver);
+        searchPage.processPage();
         /******************** Search Result *************************/
 
-        return searchBtn.getText();
+        return "a";
     }
 }
