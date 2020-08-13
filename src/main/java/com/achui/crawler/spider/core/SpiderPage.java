@@ -1,4 +1,4 @@
-package com.achui.crawler.spider.page;
+package com.achui.crawler.spider.core;
 
 import com.achui.crawler.spider.core.RequestItem;
 import com.google.common.collect.Lists;
@@ -12,7 +12,7 @@ import java.util.List;
  * @author portz
  * @date 2020/7/31 16:52
  */
-public class Page {
+public class SpiderPage {
     private String url;
     private RequestItem requestItem = new RequestItem();
     private List<RequestItem> itemList = Lists.newArrayList();

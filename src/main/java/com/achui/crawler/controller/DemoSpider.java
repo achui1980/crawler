@@ -43,14 +43,14 @@ public class DemoSpider {
         loginPage.processPage();
         /******************** Login *************************/
 
-        /******************** Got To Search Page *************************/
+        /******************** Got To Search SpiderPage *************************/
 //        WebElement tableMenu = pool.getWebDriverFactory().getWait().until(d -> d.findElement(By.xpath("//*[@id=\"app\"]/div/div[1]/div/div[1]/div/ul/div[9]/li")));
 //        tableMenu.click();
 //        WebElement table = pool.getWebDriverFactory().getWait().until(d -> d.findElement(By.xpath("//*[@id=\"app\"]/div/div[1]/div/div[1]/div/ul/div[9]/li/ul/div[4]/a/li")));
 //        table.click();
         BrigePage brigePage = new BrigePage(webDriver);
         brigePage.processPage();
-        /******************** Got To Search Page *************************/
+        /******************** Got To Search SpiderPage *************************/
 
         /******************** Search Result *************************/
 //        WebElement searchBtn = pool.getWebDriverFactory().getWait().until(d -> d.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/section/div/div[1]/button[1]")));

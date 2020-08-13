@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
  * @date 2020/7/31 15:36
  */
 @Slf4j
-public class SeleniumDownloader {
+public class LegacySeleniumDownloader {
 
     public ChromeDriver getDriver() {
         System.setProperty("webdriver.chrome.driver", "conf/chromedriver_v84.exe");

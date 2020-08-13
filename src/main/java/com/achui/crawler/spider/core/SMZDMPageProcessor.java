@@ -1,7 +1,5 @@
 package com.achui.crawler.spider.core;
 
-import com.achui.crawler.spider.page.Page;
-import com.google.common.collect.Lists;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,7 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.LinkedList;
+import java.util.Queue;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -18,7 +16,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class SMZDMPageProcessor implements PageProcessor {
     @Override
-    public void login(com.achui.crawler.spider.page.Page page) {
+    public void login(SpiderPage page) {
         WebDriver webDriver = page.getWebDriverEngine();
         String userName = "admin";
         String password = "D*u4HlX4P8ey";
@@ -44,7 +42,7 @@ public class SMZDMPageProcessor implements PageProcessor {
     }
 
     @Override
-    public void process(com.achui.crawler.spider.page.Page page) throws Exception {
+    public void processMainPage(SpiderPage page) throws Exception {
         WebDriver webDriver = page.getWebDriverEngine();
         WebDriverWait webDriverWait = new WebDriverWait(webDriver, 30);
         WebElement mask = webDriver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/section/div/div[2]/div[5]"));
@@ -64,7 +62,12 @@ public class SMZDMPageProcessor implements PageProcessor {
         processLogic(page);
     }
 
-    private String processLogic(Page page) {
+    @Override
+    public Queue<Request> getRequestQueue() {
+        return null;
+    }
+
+    private String processLogic(SpiderPage page) {
         WebDriver webDriver = page.getWebDriverEngine();
         WebElement titleElement = webDriver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/section/div/div[2]/div[3]/table/tbody/tr[1]/td[3]/div/span[1]"));
         System.out.println(titleElement.getText());
