@@ -15,5 +15,8 @@ public class SpiderMultipleThread {
         executorService.submit(new GithubPageCallable());
         executorService.submit(new GithubPageCallable());
         executorService.submit(new GithubPageCallable());
+        if (!executorService.isShutdown()) {
+            executorService.shutdown();
+        }
     }
 }

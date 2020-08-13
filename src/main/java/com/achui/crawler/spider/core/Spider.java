@@ -47,6 +47,11 @@ public class Spider {
         return this;
     }
 
+    public Spider requireLogin(boolean requireLogin) {
+        this.requireLogin = requireLogin;
+        return this;
+    }
+
     public void run() throws Exception {
         SeleniumDownloader downloader = new SeleniumDownloader();
         Request request = new Request();
@@ -58,23 +63,23 @@ public class Spider {
         }
         request.getCallback().processMainPage(page);
         Queue<Request> queue = pageProcessor.getRequestQueue();
-        List<RequestItem> results = Lists.newArrayList();
         while (!CollectionUtils.isEmpty(queue)) {
             Request nextRequest = queue.poll();
             SpiderPage nextPage = downloader.download(nextRequest);
             RequestItem requestItem = nextRequest.getPageHandler().handle(nextPage);
             if (requestItem != null) {
-                //results.add(requestItem);
                 this.outputPipeLines.forEach(outputPipeline -> outputPipeline.output(requestItem));
             }
             queue.addAll(nextRequest.getPageHandler().getRequestQueue());
         }
+        page.getWebDriverEngine().close();
 
     }
 
     public static void main(String[] args) throws Exception {
         new Spider()
                 .processor(new GithubPageProcessor())
+                .requireLogin(true)
                 .scrapUrl("https://github.com/login")
                 .addOutputPipeline(new ConsoleOutputPipeline())
                 .run();

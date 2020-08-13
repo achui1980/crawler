@@ -32,12 +32,11 @@ public class SeleniumDownloader implements Downloader {
             //Switch focus to new tab
             ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
             driver.switchTo().window(tabs.get(0));
-            webDriver.get(request.getUrl());
-        } else {
-            webDriver.get(request.getUrl());
         }
-
+        webDriver.get(request.getUrl());
         page.setWebDriverEngine(webDriver);
+        //TimeUnit.SECONDS.sleep(3);
+
         return page;
     }
     private WebDriver initWebDriver() {
@@ -46,7 +45,7 @@ public class SeleniumDownloader implements Downloader {
         }
         System.setProperty("webdriver.chrome.driver", "conf/chromedriver_v84.exe");
         ChromeOptions options = new ChromeOptions();
-        options.setHeadless(false);
+        options.setHeadless(true);
         options.setCapability(CapabilityType.ACCEPT_INSECURE_CERTS, true);
         driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
