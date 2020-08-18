@@ -1,5 +1,6 @@
 package com.achui.crawler.spider.core;
 
+import com.achui.crawler.spider.core.downloader.Downloader;
 import com.achui.crawler.spider.core.downloader.SeleniumDownloader;
 import com.achui.crawler.spider.core.pipeline.ConsoleOutputPipeline;
 import com.achui.crawler.spider.core.pipeline.OutputPipeline;
@@ -24,6 +25,8 @@ public class Spider {
 
     private List<OutputPipeline> outputPipeLines;
 
+    private Downloader downloader;
+
     @Setter
     private boolean requireLogin = true;
 
@@ -47,17 +50,22 @@ public class Spider {
         return this;
     }
 
+    public Spider downloader(Downloader downloader) {
+        this.downloader = downloader;
+        return this;
+    }
+
     public Spider requireLogin(boolean requireLogin) {
         this.requireLogin = requireLogin;
         return this;
     }
 
     public void run() throws Exception {
-        SeleniumDownloader downloader = new SeleniumDownloader();
+        //SeleniumDownloader downloader = new SeleniumDownloader();
         Request request = new Request();
         request.setUrl(this.urls.get(0));
         request.setCallback(this.pageProcessor);
-        SpiderPage page = downloader.download(request);
+        SpiderPage page = this.downloader.download(request);
         if (requireLogin) {
             request.getCallback().login(page);
         }
@@ -72,6 +80,7 @@ public class Spider {
             }
             queue.addAll(nextRequest.getPageHandler().getRequestQueue());
         }
+        page.getWebDriverEngine().quit();
         page.getWebDriverEngine().close();
 
     }
@@ -80,6 +89,7 @@ public class Spider {
         new Spider()
                 .processor(new GithubPageProcessor())
                 .requireLogin(true)
+                .downloader(new SeleniumDownloader())
                 .scrapUrl("https://github.com/login")
                 .addOutputPipeline(new ConsoleOutputPipeline())
                 .run();

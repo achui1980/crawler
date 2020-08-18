@@ -1,5 +1,6 @@
-package com.achui.crawler.conf;
+package com.achui.crawler.spider.core.pool;
 
+import com.achui.crawler.conf.WebDriverProperties;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.pool2.BasePooledObjectFactory;

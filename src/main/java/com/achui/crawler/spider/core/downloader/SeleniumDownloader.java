@@ -2,7 +2,7 @@ package com.achui.crawler.spider.core.downloader;
 
 import com.achui.crawler.spider.core.Request;
 import com.achui.crawler.spider.core.SpiderPage;
-import lombok.SneakyThrows;
+import com.achui.crawler.spider.core.pool.SeleniumPool;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -17,12 +17,16 @@ import java.util.concurrent.TimeUnit;
  */
 public class SeleniumDownloader implements Downloader {
     private ChromeDriver driver;
+    private SeleniumPool pool;
 
-    @SneakyThrows
+    public SeleniumDownloader() {
+        pool = new SeleniumPool();
+    }
+
     @Override
     public SpiderPage download(Request request) {
         SpiderPage page = new SpiderPage();
-        WebDriver webDriver = initWebDriver();
+        driver = initWebDriverFromPool();
         if (request.isOpenInNewTab()) {
 //            Robot robot = new Robot();
 //            robot.keyPress(KeyEvent.VK_CONTROL);
@@ -33,10 +37,9 @@ public class SeleniumDownloader implements Downloader {
             ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
             driver.switchTo().window(tabs.get(0));
         }
-        webDriver.get(request.getUrl());
-        page.setWebDriverEngine(webDriver);
+        driver.get(request.getUrl());
+        page.setWebDriverEngine(driver);
         //TimeUnit.SECONDS.sleep(3);
-
         return page;
     }
     private WebDriver initWebDriver() {
@@ -50,6 +53,14 @@ public class SeleniumDownloader implements Downloader {
         driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
+        return driver;
+    }
+
+    private ChromeDriver initWebDriverFromPool() {
+        if (driver != null) {
+            return driver;
+        }
+        driver = (ChromeDriver) pool.getWebDriverFromPool();
         return driver;
     }
 }

@@ -13,8 +13,8 @@ public class SpiderMultipleThread {
     public static void main(String[] args) {
         ExecutorService executorService = Executors.newCachedThreadPool();
         executorService.submit(new GithubPageCallable());
-        executorService.submit(new GithubPageCallable());
-        executorService.submit(new GithubPageCallable());
+        //executorService.submit(new GithubPageCallable());
+        //executorService.submit(new GithubPageCallable());
         if (!executorService.isShutdown()) {
             executorService.shutdown();
         }

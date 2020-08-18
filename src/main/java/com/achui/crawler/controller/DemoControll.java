@@ -62,7 +62,7 @@ public class DemoControll {
 
         // Locate the login button and click on it
         driver.findElement(By.xpath("//input[@value='login']")).click();
-        pool.getWebDriverFactory().getWait().until(d -> !d.getCurrentUrl().contains("login"));
+//        pool.getWebDriverFactory().getWait().until(d -> !d.getCurrentUrl().contains("login"));
 //        if(driver.getCurrentUrl().equals("https://news.ycombinator.com/login")){
 //            System.out.println("Incorrect credentials");
 //            driver.quit();

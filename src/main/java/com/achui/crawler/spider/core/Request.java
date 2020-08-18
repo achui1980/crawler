@@ -13,6 +13,5 @@ public class Request {
     private PageProcessor callback;
     private PageHandler pageHandler;
     private boolean openInNewTab = false;
-    private String callbackMethod;
     private String url;
 }

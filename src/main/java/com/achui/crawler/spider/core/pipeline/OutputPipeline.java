@@ -1,5 +1,6 @@
 package com.achui.crawler.spider.core.pipeline;
 
+import com.achui.crawler.spider.OutputPipelineException;
 import com.achui.crawler.spider.core.RequestItem;
 
 /**
@@ -8,5 +9,5 @@ import com.achui.crawler.spider.core.RequestItem;
  */
 public interface OutputPipeline {
 
-    void output(RequestItem requestItem);
+    void output(RequestItem requestItem) throws OutputPipelineException;
 }
