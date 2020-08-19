@@ -26,7 +26,7 @@ public class SeleniumDownloader implements Downloader {
     @Override
     public SpiderPage download(Request request) {
         SpiderPage page = new SpiderPage();
-        driver = initWebDriverFromPool();
+        driver = (ChromeDriver) initWebDriver();
         if (request.isOpenInNewTab()) {
 //            Robot robot = new Robot();
 //            robot.keyPress(KeyEvent.VK_CONTROL);
@@ -48,7 +48,7 @@ public class SeleniumDownloader implements Downloader {
         }
         System.setProperty("webdriver.chrome.driver", "conf/chromedriver_v84.exe");
         ChromeOptions options = new ChromeOptions();
-        options.setHeadless(true);
+        options.setHeadless(false);
         options.setCapability(CapabilityType.ACCEPT_INSECURE_CERTS, true);
         driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
