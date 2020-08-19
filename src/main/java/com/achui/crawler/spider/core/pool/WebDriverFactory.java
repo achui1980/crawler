@@ -30,7 +30,7 @@ public class WebDriverFactory extends BasePooledObjectFactory<ChromeDriver> {
         System.setProperty("webdriver.chrome.driver", config.getPath());
         log.info("Driver path: {}", config.getPath());
         ChromeOptions options = new ChromeOptions();
-        options.setHeadless(false);
+        options.setHeadless(true);
         options.setCapability(CapabilityType.ACCEPT_INSECURE_CERTS, true);
         ChromeDriver driver = new ChromeDriver(options);
         //driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);

@@ -13,16 +13,19 @@ import java.util.Queue;
  * @date 2020/8/11 16:36
  */
 public class ProjectDetailHanlder implements PageHandler {
+    private Queue requests = Lists.newLinkedList();
+
     @Override
     public RequestItem handle(SpiderPage page) {
         System.out.println("handler detail page:" + page.getWebDriverEngine().getTitle());
         RequestItem requestItem = new RequestItem();
         requestItem.put("title", page.getWebDriverEngine().getTitle());
+        requests.offer(requestItem);
         return requestItem;
     }
 
     @Override
     public Queue getRequestQueue() {
-        return Lists.newLinkedList();
+        return requests;
     }
 }

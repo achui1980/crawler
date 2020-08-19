@@ -48,7 +48,7 @@ public class SeleniumDownloader implements Downloader {
         }
         System.setProperty("webdriver.chrome.driver", "conf/chromedriver_v84.exe");
         ChromeOptions options = new ChromeOptions();
-        options.setHeadless(false);
+        options.setHeadless(true);
         options.setCapability(CapabilityType.ACCEPT_INSECURE_CERTS, true);
         driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
