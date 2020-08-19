@@ -18,6 +18,7 @@ public class GithubPageCallable implements Callable {
                 .processor(new GithubPageProcessor())
                 .scrapUrl("https://github.com/login")
                 .downloader(new SeleniumDownloader())
+                .requireLogin(true)
                 .addOutputPipeline(new ConsoleOutputPipeline())
                 .addOutputPipeline(new FileOutputPipeline("c:/tmp/github_port.txt"))
                 .run();

@@ -4,7 +4,7 @@ import com.achui.crawler.spider.core.downloader.Downloader;
 import com.achui.crawler.spider.core.downloader.SeleniumDownloader;
 import com.achui.crawler.spider.core.pipeline.ConsoleOutputPipeline;
 import com.achui.crawler.spider.core.pipeline.OutputPipeline;
-import com.achui.crawler.spider.example.github.GithubPageProcessor;
+import com.achui.crawler.spider.example.douban.DoubanProcessor;
 import com.google.common.collect.Lists;
 import lombok.Setter;
 import org.springframework.util.CollectionUtils;
@@ -70,27 +70,35 @@ public class Spider {
             request.getCallback().login(page);
         }
         request.getCallback().processMainPage(page);
-        Queue<Request> queue = pageProcessor.getRequestQueue();
+        Queue queue = pageProcessor.getRequestQueue();
         while (!CollectionUtils.isEmpty(queue)) {
-            Request nextRequest = queue.poll();
-            SpiderPage nextPage = downloader.download(nextRequest);
-            RequestItem requestItem = nextRequest.getPageHandler().handle(nextPage);
-            if (requestItem != null) {
+            Object processResult = queue.poll();
+            if (processResult instanceof Request) {
+                Request nextRequest = (Request) processResult;
+                SpiderPage nextPage = downloader.download((Request) processResult);
+                RequestItem requestItem = nextRequest.getPageHandler().handle(nextPage);
+                if (requestItem != null) {
+                    this.outputPipeLines.forEach(outputPipeline -> outputPipeline.output(requestItem));
+                }
+                queue.addAll(nextRequest.getPageHandler().getRequestQueue());
+            } else if (processResult instanceof RequestItem) {
+                RequestItem requestItem = (RequestItem) processResult;
                 this.outputPipeLines.forEach(outputPipeline -> outputPipeline.output(requestItem));
             }
-            queue.addAll(nextRequest.getPageHandler().getRequestQueue());
+
+
         }
-        page.getWebDriverEngine().quit();
         page.getWebDriverEngine().close();
+        page.getWebDriverEngine().quit();
 
     }
 
     public static void main(String[] args) throws Exception {
         new Spider()
-                .processor(new GithubPageProcessor())
-                .requireLogin(true)
+                .processor(new DoubanProcessor())
+                .requireLogin(false)
                 .downloader(new SeleniumDownloader())
-                .scrapUrl("https://github.com/login")
+                .scrapUrl("https://movie.douban.com/top250")
                 .addOutputPipeline(new ConsoleOutputPipeline())
                 .run();
     }

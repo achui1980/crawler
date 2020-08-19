@@ -51,7 +51,7 @@ public class WebDriverFactory extends BasePooledObjectFactory<ChromeDriver> {
             return;
         }
         ChromeDriver driver = driverPooled.getObject();
-        driver.quit();
         driver.close();
+        driver.quit();
     }
 }

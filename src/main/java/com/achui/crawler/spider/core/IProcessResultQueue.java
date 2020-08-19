@@ -6,7 +6,7 @@ import java.util.Queue;
  * @author portz
  * @date 2020/8/12 15:45
  */
-public interface IRequestQueue {
+public interface IProcessResultQueue {
 
-    Queue<Request> getRequestQueue();
+    Queue getRequestQueue();
 }

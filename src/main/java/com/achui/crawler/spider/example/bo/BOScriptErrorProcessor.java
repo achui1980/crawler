@@ -66,7 +66,7 @@ public class BOScriptErrorProcessor implements PageProcessor {
     }
 
     @Override
-    public Queue<Request> getRequestQueue() {
+    public Queue getRequestQueue() {
         return null;
     }
 }

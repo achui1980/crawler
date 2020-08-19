@@ -22,7 +22,7 @@ public class ProjectDetailHanlder implements PageHandler {
     }
 
     @Override
-    public Queue<Request> getRequestQueue() {
+    public Queue getRequestQueue() {
         return Lists.newLinkedList();
     }
 }

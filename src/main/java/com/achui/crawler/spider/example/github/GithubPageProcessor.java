@@ -17,9 +17,10 @@ import java.util.Queue;
  * @date 2020/8/3 16:07
  */
 public class GithubPageProcessor implements PageProcessor {
-    private Queue<Request> requests = Lists.newLinkedList();
+    private Queue requests = Lists.newLinkedList();
+
     @Override
-    public void login(SpiderPage page) {
+    public void login(SpiderPage page) throws Exception {
         WebDriver webDriver = page.getWebDriverEngine();
         String userName = "admin";
         String password = "D*u4HlX4P8ey";
@@ -38,7 +39,7 @@ public class GithubPageProcessor implements PageProcessor {
     public void processMainPage(SpiderPage page) throws Exception {
         WebDriver webDriver = page.getWebDriverEngine();
         //*[@id="repos-container"]/ul/li[1]
-        List<WebElement> projectList = webDriver.findElements(By.xpath("//*[@id=\"dashboard-repos-container\"]/div[@id=\"repos-container\"]/ul/li"));
+        List<WebElement> projectList = webDriver.findElements(By.xpath("//*[@id=\"dashboard-repos-container\"]/div[@id=\"repos-container\"]/ul/li00d"));
         for (WebElement element : projectList) {
             WebElement projectUri = element.findElement(By.cssSelector("div>a"));
             System.out.println(projectUri.getAttribute("href"));
@@ -52,7 +53,7 @@ public class GithubPageProcessor implements PageProcessor {
     }
 
     @Override
-    public Queue<Request> getRequestQueue() {
+    public Queue getRequestQueue() {
         return requests;
     }
 
