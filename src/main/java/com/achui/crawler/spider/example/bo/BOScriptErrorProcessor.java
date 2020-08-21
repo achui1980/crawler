@@ -2,6 +2,7 @@ package com.achui.crawler.spider.example.bo;
 
 import com.achui.crawler.spider.core.PageProcessor;
 import com.achui.crawler.spider.core.SpiderPage;
+import com.achui.crawler.util.WebDriverWaiting;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -50,31 +51,12 @@ public class BOScriptErrorProcessor implements PageProcessor {
         //WebElement loadingBar = webDriver.findElement(By.xpath("//*[@id=\"loading-bar\"]"));
         //webDriverWait.until(ExpectedConditions.numberOfElementsToBe(By.xpath("//*[@id=\"loading-bar\"]"), 0));
 
-        FluentWait<WebDriver> wait = new FluentWait<WebDriver>(webDriver);
-        wait.withTimeout(Duration.ofSeconds(10))
-                .ignoring(NoSuchElementException.class)
-                .pollingEvery(Duration.ofMillis(500))
-                .withMessage("Demo");
-        WebElement processBar = null;
-        try {
-            processBar = wait.until(new Function<WebDriver, WebElement>() {
-                @Override
-                public WebElement apply(WebDriver driver) {
-                    return driver.findElement(By.xpath("//*[@id=\"loading-bar\"]"));
-                }
-            });
-        } catch (Exception e) {
-        }
-        if (processBar != null) {
-            WebDriverWait waitProcessor = new WebDriverWait(webDriver, 60);
-            wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[@id=\"loading-bar\"]")));
-        }
-        //.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[@id=\"loading-bar\"]")));
         log.info("==============");
-        WebElement nextPage = webDriver.findElement(By.xpath("//*[@id=\"main-container\"]/div/div/div[2]/div/nav[1]/ul/li[6]"));
-        List<WebElement> currentPage = webDriver.findElements(By.xpath("//*[@id=\"table-content\"]/table/tbody/tr"));
-        boolean disabled = false;
+        boolean disabled;
         while (true) {
+            WebDriverWaiting.wait4element(webDriver, Duration.ofSeconds(10), By.xpath("//*[@id=\"loading-bar\"]"));
+            WebElement nextPage = webDriver.findElement(By.xpath("//*[@id=\"main-container\"]/div/div/div[2]/div/nav[1]/ul/li[6]"));
+            List<WebElement> currentPage = webDriver.findElements(By.xpath("//*[@id=\"table-content\"]/table/tbody/tr"));
             TimeUnit.SECONDS.sleep(1);
             log.info("list.size:{}", currentPage.size());
             disabled = "disabled".equals(nextPage.getAttribute("class"));
@@ -84,8 +66,8 @@ public class BOScriptErrorProcessor implements PageProcessor {
             }
             nextPage.findElement(By.xpath("a")).click();
             //webDriverWait.until(ExpectedConditions.numberOfElementsToBe(By.xpath("//*[@id=\"loading-bar\"]"), 0));
-            nextPage = webDriver.findElement(By.xpath("//*[@id=\"main-container\"]/div/div/div[2]/div/nav[1]/ul/li[6]"));
-            currentPage = webDriver.findElements(By.xpath("//*[@id=\"table-content\"]/table/tbody/tr"));
+//            nextPage = webDriver.findElement(By.xpath("//*[@id=\"main-container\"]/div/div/div[2]/div/nav[1]/ul/li[6]"));
+//            currentPage = webDriver.findElements(By.xpath("//*[@id=\"table-content\"]/table/tbody/tr"));
 
         }
     }

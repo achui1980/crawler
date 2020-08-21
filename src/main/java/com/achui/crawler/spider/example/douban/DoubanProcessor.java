@@ -24,11 +24,10 @@ public class DoubanProcessor implements PageProcessor {
     @Override
     public void processMainPage(SpiderPage page) throws Exception {
         WebDriver webDriver = page.getWebDriverEngine();
-        WebDriverWait webDriverWait = new WebDriverWait(webDriver, 30);
-        WebElement nextPage = webDriver.findElement(By.xpath("//*[@id=\"content\"]/div/div[1]/div[2]/span[3]"));
-        List<WebElement> filmList = nextPage.findElements(By.xpath("//*[@id=\"content\"]/div/div[1]/ol/li"));
         while (true) {
             TimeUnit.SECONDS.sleep(1);
+            WebElement nextPage = webDriver.findElement(By.xpath("//*[@id=\"content\"]/div/div[1]/div[2]/span[3]"));
+            List<WebElement> filmList = nextPage.findElements(By.xpath("//*[@id=\"content\"]/div/div[1]/ol/li"));
             for (WebElement element : filmList) {
                 String title = element.findElement(By.xpath("div/div[2]/div[1]/a/span[1]")).getText();
                 String rate = element.findElement(By.xpath("div/div[2]/div[2]/div/span[2]")).getText();
@@ -44,8 +43,6 @@ public class DoubanProcessor implements PageProcessor {
                 break;
             }
             nextPage.findElement(By.xpath("a")).click();
-            nextPage = webDriver.findElement(By.xpath("//*[@id=\"content\"]/div/div[1]/div[2]/span[3]"));
-            filmList = nextPage.findElements(By.xpath("//*[@id=\"content\"]/div/div[1]/ol/li"));
         }
 
     }
