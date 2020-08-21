@@ -3,6 +3,7 @@ package com.achui.crawler.spider.core.downloader;
 import com.achui.crawler.spider.core.Request;
 import com.achui.crawler.spider.core.SpiderPage;
 import com.achui.crawler.spider.core.pool.SeleniumPool;
+import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -26,7 +27,7 @@ public class SeleniumDownloader implements Downloader {
     @Override
     public SpiderPage download(Request request) {
         SpiderPage page = new SpiderPage();
-        driver = (ChromeDriver) initWebDriver();
+        driver = initWebDriverFromPool();
         if (request.isOpenInNewTab()) {
 //            Robot robot = new Robot();
 //            robot.keyPress(KeyEvent.VK_CONTROL);
@@ -48,10 +49,11 @@ public class SeleniumDownloader implements Downloader {
         }
         System.setProperty("webdriver.chrome.driver", "conf/chromedriver_v84.exe");
         ChromeOptions options = new ChromeOptions();
-        options.setHeadless(true);
+        options.setHeadless(false);
+        options.setPageLoadStrategy(PageLoadStrategy.EAGER);
         options.setCapability(CapabilityType.ACCEPT_INSECURE_CERTS, true);
         driver = new ChromeDriver(options);
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         return driver;
     }

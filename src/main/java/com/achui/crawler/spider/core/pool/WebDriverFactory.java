@@ -6,9 +6,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.pool2.BasePooledObjectFactory;
 import org.apache.commons.pool2.PooledObject;
 import org.apache.commons.pool2.impl.DefaultPooledObject;
+import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.CapabilityType;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author portz
@@ -30,10 +33,11 @@ public class WebDriverFactory extends BasePooledObjectFactory<ChromeDriver> {
         System.setProperty("webdriver.chrome.driver", config.getPath());
         log.info("Driver path: {}", config.getPath());
         ChromeOptions options = new ChromeOptions();
-        options.setHeadless(true);
+        options.setHeadless(false);
+        options.setPageLoadStrategy(PageLoadStrategy.EAGER);
         options.setCapability(CapabilityType.ACCEPT_INSECURE_CERTS, true);
         ChromeDriver driver = new ChromeDriver(options);
-        //driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        //driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         //this.wait = new WebDriverWait(driver, config.getTimeout());
         //this.fluentWait = new FluentWait<>(driver).withTimeout(Duration.ofSeconds(config.getTimeout())).pollingEvery(Duration.ofSeconds(5)).ignoring(NoSuchElementException.class);
