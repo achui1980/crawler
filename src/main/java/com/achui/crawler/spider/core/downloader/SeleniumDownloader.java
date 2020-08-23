@@ -3,6 +3,7 @@ package com.achui.crawler.spider.core.downloader;
 import com.achui.crawler.spider.core.Request;
 import com.achui.crawler.spider.core.SpiderPage;
 import com.achui.crawler.spider.core.pool.SeleniumPool;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -16,6 +17,7 @@ import java.util.concurrent.TimeUnit;
  * @author portz
  * @date 2020/7/31 17:07
  */
+@Slf4j
 public class SeleniumDownloader implements Downloader {
     private ChromeDriver driver;
     private SeleniumPool pool;
@@ -40,6 +42,7 @@ public class SeleniumDownloader implements Downloader {
         }
         driver.get(request.getUrl());
         page.setWebDriverEngine(driver);
+        log.info(driver.getPageSource());
         //TimeUnit.SECONDS.sleep(3);
         return page;
     }

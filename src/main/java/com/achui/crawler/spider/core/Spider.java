@@ -1,16 +1,19 @@
 package com.achui.crawler.spider.core;
 
 import com.achui.crawler.spider.core.downloader.Downloader;
+import com.achui.crawler.spider.core.downloader.HtmlUnitDownloader;
 import com.achui.crawler.spider.core.downloader.SeleniumDownloader;
 import com.achui.crawler.spider.core.pipeline.ConsoleOutputPipeline;
 import com.achui.crawler.spider.core.pipeline.OutputPipeline;
-import com.achui.crawler.spider.example.douban.DoubanProcessor;
+import com.achui.crawler.spider.example.douban.DoubanHtmlUnitProcessor;
+import com.achui.crawler.spider.example.douban.DoubanSeleniumProcessor;
 import com.google.common.collect.Lists;
 import lombok.Setter;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Queue;
+import java.util.logging.Level;
 
 /**
  * @author portz
@@ -88,16 +91,20 @@ public class Spider {
 
 
         }
-        page.getWebDriverEngine().close();
-        page.getWebDriverEngine().quit();
+        if (page.getWebDriverEngine() != null) {
+            page.getWebDriverEngine().close();
+            page.getWebDriverEngine().quit();
+        }
 
     }
 
     public static void main(String[] args) throws Exception {
+        java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(Level.OFF);
+        java.util.logging.Logger.getLogger("org.apache.commons.httpclient").setLevel(Level.OFF);
         new Spider()
-                .processor(new DoubanProcessor())
+                .processor(new DoubanHtmlUnitProcessor())
                 .requireLogin(false)
-                .downloader(new SeleniumDownloader())
+                .downloader(new HtmlUnitDownloader())
                 .scrapUrl("https://movie.douban.com/top250")
                 .addOutputPipeline(new ConsoleOutputPipeline())
                 .run();

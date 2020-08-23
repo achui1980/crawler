@@ -9,5 +9,5 @@ import com.achui.crawler.spider.core.SpiderPage;
  * @date 2020/7/31 17:04
  */
 public interface Downloader {
-    SpiderPage download(Request request);
+    SpiderPage download(Request request) throws Exception;
 }

@@ -1,6 +1,8 @@
 package com.achui.crawler.spider.core;
 
 import com.achui.crawler.spider.core.RequestItem;
+import com.gargoylesoftware.htmlunit.Page;
+import com.gargoylesoftware.htmlunit.WebClient;
 import com.google.common.collect.Lists;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +21,12 @@ public class SpiderPage {
     @Getter
     @Setter
     private WebDriver webDriverEngine;
+    @Getter
+    @Setter
+    private WebClient webClient;
+    @Getter
+    @Setter
+    private Page scrapPage;
     private boolean pagination;
 
     public void putField(String key, String field) {

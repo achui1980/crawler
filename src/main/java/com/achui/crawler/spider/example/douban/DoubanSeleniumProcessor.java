@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.TimeUnit;
 
-public class DoubanProcessor implements PageProcessor {
+public class DoubanSeleniumProcessor implements PageProcessor {
     private Queue requests = Lists.newLinkedList();
 
     @Override
