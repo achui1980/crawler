@@ -1,20 +1,16 @@
 package com.achui.crawler.spider.example.douban;
 
-import com.achui.crawler.spider.core.PageProcessor;
+import com.achui.crawler.spider.core.AbstractPageProcessor;
 import com.achui.crawler.spider.core.RequestItem;
 import com.achui.crawler.spider.core.SpiderPage;
-import com.google.common.collect.Lists;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
-import java.util.Queue;
 import java.util.concurrent.TimeUnit;
 
-public class DoubanSeleniumProcessor implements PageProcessor {
-    private Queue requests = Lists.newLinkedList();
+public class DoubanSeleniumProcessor extends AbstractPageProcessor {
 
     @Override
     public void login(SpiderPage page) throws Exception {
@@ -35,7 +31,7 @@ public class DoubanSeleniumProcessor implements PageProcessor {
                 requestItem.put("title", title);
                 requestItem.put("rate", rate);
                 System.out.println(title + ":" + rate);
-                requests.offer(requestItem);
+                getRequestQueue().offer(requestItem);
             }
             //TODO: Business logic
             List<WebElement> aLink = nextPage.findElements(By.xpath("a"));
@@ -45,10 +41,5 @@ public class DoubanSeleniumProcessor implements PageProcessor {
             nextPage.findElement(By.xpath("a")).click();
         }
 
-    }
-
-    @Override
-    public Queue getRequestQueue() {
-        return requests;
     }
 }

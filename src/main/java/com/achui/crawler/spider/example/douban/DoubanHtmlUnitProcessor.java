@@ -1,20 +1,18 @@
 package com.achui.crawler.spider.example.douban;
 
+import com.achui.crawler.spider.core.AbstractPageProcessor;
 import com.achui.crawler.spider.core.PageProcessor;
 import com.achui.crawler.spider.core.RequestItem;
 import com.achui.crawler.spider.core.SpiderPage;
-import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.google.common.collect.Lists;
 
-import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Queue;
 
-public class DoubanHtmlUnitProcessor implements PageProcessor {
-    private Queue requests = Lists.newLinkedList();
+public class DoubanHtmlUnitProcessor extends AbstractPageProcessor {
     @Override
     public void login(SpiderPage page) throws Exception {
 
@@ -23,8 +21,6 @@ public class DoubanHtmlUnitProcessor implements PageProcessor {
     @Override
     public void processMainPage(SpiderPage page) throws Exception {
         WebClient webClient = page.getWebClient();
-        Page scrapPage = page.getScrapPage();
-        String html = scrapPage.getWebResponse().getContentAsString(Charset.forName("UTF-8"));
         int offset = 0;
         while (true) {
             String url = "https://movie.douban.com/top250?start=" + offset + "&filter=";
@@ -37,17 +33,12 @@ public class DoubanHtmlUnitProcessor implements PageProcessor {
                 requestItem.put("title", title);
                 requestItem.put("rate", rate);
                 System.out.println(title + ":" + rate);
-                requests.offer(requestItem);
+                getRequestQueue().offer(requestItem);
             }
             offset += 25;
             if (offset >= 250) {
                 break;
             }
         }
-    }
-
-    @Override
-    public Queue getRequestQueue() {
-        return requests;
     }
 }

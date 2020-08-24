@@ -7,8 +7,6 @@ import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
 import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.WebClient;
 
-import java.util.logging.Level;
-
 /**
  * @author portz
  * @date 2020/8/18 16:31
@@ -36,10 +34,8 @@ public class HtmlunitDownloader implements Downloader {
     @Override
     public SpiderPage download(Request request) throws Exception {
         WebClient webClient = getWebClient(false);
-        Page page = webClient.getPage(request.getUrl());
         SpiderPage spiderPage = new SpiderPage();
         spiderPage.setWebClient(webClient);
-        spiderPage.setScrapPage(page);
         return spiderPage;
     }
 }

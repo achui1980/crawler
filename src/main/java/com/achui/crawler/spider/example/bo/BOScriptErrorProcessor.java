@@ -57,7 +57,7 @@ public class BOScriptErrorProcessor implements PageProcessor {
             WebDriverWaiting.wait4element(webDriver, Duration.ofSeconds(10), By.xpath("//*[@id=\"loading-bar\"]"));
             WebElement nextPage = webDriver.findElement(By.xpath("//*[@id=\"main-container\"]/div/div/div[2]/div/nav[1]/ul/li[6]"));
             List<WebElement> currentPage = webDriver.findElements(By.xpath("//*[@id=\"table-content\"]/table/tbody/tr"));
-            TimeUnit.SECONDS.sleep(1);
+            //TimeUnit.SECONDS.sleep(1);
             log.info("list.size:{}", currentPage.size());
             disabled = "disabled".equals(nextPage.getAttribute("class"));
             log.info("disable:{}", disabled);

@@ -77,17 +77,11 @@ public class Spider {
             if (processResult instanceof Request) {
                 Request nextRequest = (Request) processResult;
                 SpiderPage nextPage = downloader.download((Request) processResult);
-                RequestItem requestItem = nextRequest.getPageHandler().handle(nextPage);
-//                if (requestItem != null) {
-//                    this.outputPipeLines.forEach(outputPipeline -> outputPipeline.output(requestItem));
-//                }
                 queue.addAll(nextRequest.getPageHandler().getRequestQueue());
             } else if (processResult instanceof RequestItem) {
                 RequestItem requestItem = (RequestItem) processResult;
                 this.outputPipeLines.forEach(outputPipeline -> outputPipeline.output(requestItem));
             }
-
-
         }
         if (page.getWebDriverEngine() != null) {
             page.getWebDriverEngine().close();

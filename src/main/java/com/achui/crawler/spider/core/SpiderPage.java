@@ -24,9 +24,6 @@ public class SpiderPage {
     @Getter
     @Setter
     private WebClient webClient;
-    @Getter
-    @Setter
-    private Page scrapPage;
     private boolean pagination;
 
     public void putField(String key, String field) {
