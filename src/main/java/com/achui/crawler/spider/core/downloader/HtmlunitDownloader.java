@@ -13,7 +13,7 @@ import java.util.logging.Level;
  * @author portz
  * @date 2020/8/18 16:31
  */
-public class HtmlUnitDownloader implements Downloader {
+public class HtmlunitDownloader implements Downloader {
 
 
     public WebClient getWebClient(boolean flag) {

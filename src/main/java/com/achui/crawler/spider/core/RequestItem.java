@@ -4,6 +4,7 @@ import com.google.common.collect.Maps;
 import lombok.Data;
 
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author portz
@@ -15,5 +16,12 @@ public class RequestItem {
 
     public void put(String key, String value) {
         item.put(key, value);
+    }
+
+    @Override
+    public String toString() {
+        String result = item.entrySet().stream().map(entry -> entry.getKey() + ":" + entry.getValue())
+                .collect(Collectors.joining(" ,"));
+        return "RequestItem{" + result + "}";
     }
 }

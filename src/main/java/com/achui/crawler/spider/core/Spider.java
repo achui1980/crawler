@@ -1,12 +1,10 @@
 package com.achui.crawler.spider.core;
 
 import com.achui.crawler.spider.core.downloader.Downloader;
-import com.achui.crawler.spider.core.downloader.HtmlUnitDownloader;
-import com.achui.crawler.spider.core.downloader.SeleniumDownloader;
+import com.achui.crawler.spider.core.downloader.HtmlunitDownloader;
 import com.achui.crawler.spider.core.pipeline.ConsoleOutputPipeline;
 import com.achui.crawler.spider.core.pipeline.OutputPipeline;
 import com.achui.crawler.spider.example.douban.DoubanHtmlUnitProcessor;
-import com.achui.crawler.spider.example.douban.DoubanSeleniumProcessor;
 import com.google.common.collect.Lists;
 import lombok.Setter;
 import org.springframework.util.CollectionUtils;
@@ -104,7 +102,7 @@ public class Spider {
         new Spider()
                 .processor(new DoubanHtmlUnitProcessor())
                 .requireLogin(false)
-                .downloader(new HtmlUnitDownloader())
+                .downloader(new HtmlunitDownloader())
                 .scrapUrl("https://movie.douban.com/top250")
                 .addOutputPipeline(new ConsoleOutputPipeline())
                 .run();
