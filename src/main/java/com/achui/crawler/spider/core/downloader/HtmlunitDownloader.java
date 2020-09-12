@@ -14,7 +14,7 @@ import com.gargoylesoftware.htmlunit.WebClient;
 public class HtmlunitDownloader implements Downloader {
 
 
-    public WebClient getWebClient(boolean flag) {
+    public WebClient getWebClient(boolean javaScriptEnabled) {
 
 
         WebClient webClient = new WebClient(BrowserVersion.BEST_SUPPORTED);
@@ -24,7 +24,7 @@ public class HtmlunitDownloader implements Downloader {
         webClient.getOptions().setThrowExceptionOnScriptError(false);
         webClient.getOptions().setRedirectEnabled(true);
         webClient.getOptions().setAppletEnabled(false);
-        webClient.getOptions().setJavaScriptEnabled(flag);
+        webClient.getOptions().setJavaScriptEnabled(javaScriptEnabled);
         webClient.getOptions().setTimeout(60000);
         webClient.getOptions().setPrintContentOnFailingStatusCode(false);
         webClient.setAjaxController(new NicelyResynchronizingAjaxController());
