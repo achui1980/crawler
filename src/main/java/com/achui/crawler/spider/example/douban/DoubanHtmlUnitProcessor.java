@@ -1,16 +1,13 @@
 package com.achui.crawler.spider.example.douban;
 
 import com.achui.crawler.spider.core.AbstractPageProcessor;
-import com.achui.crawler.spider.core.PageProcessor;
 import com.achui.crawler.spider.core.RequestItem;
 import com.achui.crawler.spider.core.SpiderPage;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.google.common.collect.Lists;
 
 import java.util.List;
-import java.util.Queue;
 
 public class DoubanHtmlUnitProcessor extends AbstractPageProcessor {
     @Override

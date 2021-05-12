@@ -16,7 +16,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public class SeleniumPool {
     private WebDriverProperties initWebDriverProperty() {
         WebDriverProperties webDriverProperties = new WebDriverProperties();
-        webDriverProperties.setPath("conf/chromedriver_v84.exe");
+        webDriverProperties.setPath("conf/chromedriver_v89.exe");
         webDriverProperties.setPoolMaxIdle(10);
         webDriverProperties.setPoolSize(20);
         return webDriverProperties;

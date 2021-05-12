@@ -14,6 +14,7 @@ import java.util.Queue;
 import java.util.logging.Level;
 
 /**
+ * 将每个页面的的内容都缓存到本地队列中，然后队列里面读取每个请求进行处理，通过内容下载器进行内容过滤
  * @author portz
  * @date 2020/7/31 15:00
  */

@@ -8,6 +8,7 @@ import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.WebClient;
 
 /**
+ * 基于Htmlunit包的内容下载器
  * @author portz
  * @date 2020/8/18 16:31
  */

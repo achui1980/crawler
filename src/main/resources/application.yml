@@ -2,7 +2,7 @@ server:
   port: 8081
 webdriver:
   conf:
-    path: conf/chromedriver_v84.exe
+    path: conf/chromedriver_v89.exe
     timeout: 30
     poolsize: 20
     poolMaxIdle: 10

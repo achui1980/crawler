@@ -7,6 +7,10 @@ import lombok.extern.slf4j.Slf4j;
  * @author portz
  * @date 2020/8/12 18:04
  */
+
+/**
+ * 控制台输出
+ */
 @Slf4j
 public class ConsoleOutputPipeline implements OutputPipeline {
     @Override

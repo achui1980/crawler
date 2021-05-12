@@ -26,11 +26,11 @@ public class GithubPageProcessor implements PageProcessor {
         String password = "D*u4HlX4P8ey";
         String userInput = "//*[@id=\"login_field\"]";
         String passwordInput = "//*[@id=\"password\"]";
-        String loginBtn = "//*[@id=\"login\"]/form/div[4]/input[9]";
+        String loginBtn = "//*[@id=\"login\"]/div[4]/form/div/input[12]";
         WebElement usernameEle = ((ChromeDriver) webDriver).findElementByXPath(userInput);
         WebElement passwordEle = ((ChromeDriver) webDriver).findElementByXPath(passwordInput);
         WebElement loginEle = ((ChromeDriver) webDriver).findElementByXPath(loginBtn);
-        usernameEle.sendKeys("achui_1980@163.com");
+        usernameEle.sendKeys("achui1980");
         passwordEle.sendKeys("achui_19800724");
         loginEle.click();
     }

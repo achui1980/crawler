@@ -1,6 +1,7 @@
 package com.achui.crawler.spider.example;
 
 import com.achui.crawler.spider.example.bo.BOScriptErrorCallable;
+import com.achui.crawler.spider.example.github.GithubPageCallable;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.ExecutionException;
@@ -45,7 +46,7 @@ public class SpiderMultipleThread {
         ExecutorService executorService = Executors.newCachedThreadPool();
 //        IntStream.range(1, 10)
 //                .forEach(i -> fixedThreadPoolExecutor.submit(new BOScriptErrorCallable()));
-        fixedThreadPoolExecutor.submit(new BOScriptErrorCallable());
+        fixedThreadPoolExecutor.submit(new GithubPageCallable());
         if (!fixedThreadPoolExecutor.isShutdown()) {
             fixedThreadPoolExecutor.shutdown();
         }

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * 基于Selenium包的内容下载器
  * @author portz
  * @date 2020/7/31 17:07
  */

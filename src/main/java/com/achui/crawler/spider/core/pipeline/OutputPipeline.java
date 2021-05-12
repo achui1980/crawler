@@ -9,5 +9,10 @@ import com.achui.crawler.spider.core.RequestItem;
  */
 public interface OutputPipeline {
 
+    /**
+     * 请求对象输出器
+     * @param requestItem
+     * @throws OutputPipelineException
+     */
     void output(RequestItem requestItem) throws OutputPipelineException;
 }
