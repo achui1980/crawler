@@ -78,6 +78,7 @@ public class Spider {
             if (processResult instanceof Request) {
                 Request nextRequest = (Request) processResult;
                 SpiderPage nextPage = downloader.download((Request) processResult);
+                nextRequest.getPageHandler().handle(nextPage);
                 queue.addAll(nextRequest.getPageHandler().getRequestQueue());
             } else if (processResult instanceof RequestItem) {
                 RequestItem requestItem = (RequestItem) processResult;

@@ -15,12 +15,20 @@ import java.util.List;
  * @date 2020/7/31 16:52
  */
 public class SpiderPage {
+    @Getter
+    @Setter
     private String url;
     private RequestItem requestItem = new RequestItem();
     private List<RequestItem> itemList = Lists.newArrayList();
+    /**
+     * Used for selenium engine
+     */
     @Getter
     @Setter
     private WebDriver webDriverEngine;
+    /**
+     * Used for Html Handler
+     */
     @Getter
     @Setter
     private WebClient webClient;

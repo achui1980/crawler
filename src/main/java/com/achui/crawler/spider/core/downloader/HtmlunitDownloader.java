@@ -37,6 +37,7 @@ public class HtmlunitDownloader implements Downloader {
         WebClient webClient = getWebClient(false);
         SpiderPage spiderPage = new SpiderPage();
         spiderPage.setWebClient(webClient);
+        spiderPage.setUrl(request.getUrl());
         return spiderPage;
     }
 }
