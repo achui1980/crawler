@@ -3,6 +3,7 @@ package com.achui.crawler.spider.example.novel;
 import com.achui.crawler.spider.core.PageHandler;
 import com.achui.crawler.spider.core.RequestItem;
 import com.achui.crawler.spider.core.SpiderPage;
+import com.achui.crawler.spider.example.novel.domain.NovelMetaData;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -27,7 +28,7 @@ public class BiqugeDetailHandler implements PageHandler {
     public RequestItem handle(SpiderPage page) throws Exception {
         WebClient webClient = page.getWebClient();
         HtmlPage htmlPage = webClient.getPage(page.getUrl());
-        processNovelSubject(htmlPage);
+        NovelMetaData metaData = processNovelSubject(htmlPage);
         chapters.addAll(processNovelDirectory(htmlPage));
 
         //获取页数
@@ -39,8 +40,11 @@ public class BiqugeDetailHandler implements PageHandler {
             chapters.addAll(processNovelDirectory(nextPage));
             nextPageLink = ((DomElement) nextPage.getFirstByXPath("//span[@class='right']/a")).getAttribute("href");
         }
+        metaData.setChapters(chapters);
+        RequestItem requestItem = new RequestItem();
+        requestItem.put("novel", metaData);
         System.out.println("setsize:" + chapters.size());
-        return null;
+        return requestItem;
     }
 
     //处理小说目录索引
@@ -57,7 +61,7 @@ public class BiqugeDetailHandler implements PageHandler {
     }
 
     //处理小说书名，作者，简介，状态等信息
-    public void processNovelSubject(HtmlPage page) {
+    public NovelMetaData processNovelSubject(HtmlPage page) {
         DomElement domElement = page.getFirstByXPath("//div[@class='block']");
         String image = ((DomElement) domElement.getFirstByXPath("div[@class='block_img2']/img")).getAttribute("src");
         String title = ((DomElement) domElement.getFirstByXPath("//h2")).getTextContent();
@@ -65,7 +69,16 @@ public class BiqugeDetailHandler implements PageHandler {
         String status = ((DomElement) domElement.getFirstByXPath("div[@class='block_txt2']/p[4]")).getTextContent();
         String lastUpdate = ((DomElement) domElement.getFirstByXPath("div[@class='block_txt2']/p[5]")).getTextContent();
         String introduce = ((DomElement) domElement.getFirstByXPath("//div[@class='intro_info']")).getTextContent();
-        System.out.println(String.format("Title:%s, Image:%s, Author:%s", title, image, introduce));
+        NovelMetaData novelMetaData = NovelMetaData.builder()
+                .author(author)
+                .title(title)
+                .image(image)
+                .introduce(introduce)
+                .status(status)
+                .lastUpdate(lastUpdate)
+                .build();
+        System.out.println(novelMetaData);
+        return novelMetaData;
     }
 
     @Override

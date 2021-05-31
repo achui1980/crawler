@@ -54,7 +54,7 @@ public class BiqugeProcessor extends AbstractPageProcessor {
                 .requireLogin(false)
                 .downloader(new HtmlunitDownloader())
                 .scrapUrl("https://m.shuquge.com/store/allvisit-1.html")
-                .addOutputPipeline(new ConsoleOutputPipeline())
+                .addOutputPipeline(new NovelOutputPipeline())
                 .run();
     }
 }
