@@ -12,9 +12,9 @@ import java.util.stream.Collectors;
  */
 @Data
 public class RequestItem {
-    private Map<String, String> item = Maps.newHashMap();
+    private Map<String, Object> item = Maps.newHashMap();
 
-    public void put(String key, String value) {
+    public void put(String key, Object value) {
         item.put(key, value);
     }
 

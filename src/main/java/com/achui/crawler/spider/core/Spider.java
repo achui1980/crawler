@@ -5,6 +5,7 @@ import com.achui.crawler.spider.core.downloader.HtmlunitDownloader;
 import com.achui.crawler.spider.core.pipeline.ConsoleOutputPipeline;
 import com.achui.crawler.spider.core.pipeline.OutputPipeline;
 import com.achui.crawler.spider.example.douban.DoubanHtmlUnitProcessor;
+import com.achui.crawler.spider.example.novel.BiqugeProcessor;
 import com.google.common.collect.Lists;
 import lombok.Setter;
 import org.springframework.util.CollectionUtils;
@@ -96,7 +97,7 @@ public class Spider {
         java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(Level.OFF);
         java.util.logging.Logger.getLogger("org.apache.commons.httpclient").setLevel(Level.OFF);
         new Spider()
-                .processor(new DoubanHtmlUnitProcessor())
+                .processor(new BiqugeProcessor())
                 .requireLogin(false)
                 .downloader(new HtmlunitDownloader())
                 .scrapUrl("https://movie.douban.com/top250")

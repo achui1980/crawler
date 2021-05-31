@@ -32,8 +32,8 @@ public class FileOutputPipeline implements OutputPipeline {
             outputFile.createNewFile();
         }
         String content = "";
-        Map<String, String> item = requestItem.getItem();
-        for (Map.Entry<String, String> entry : item.entrySet()) {
+        Map<String, Object> item = requestItem.getItem();
+        for (Map.Entry<String, Object> entry : item.entrySet()) {
             content += String.format("key:%s, value:%s%n", entry.getKey(), entry.getValue());
 
         }
