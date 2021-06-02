@@ -5,7 +5,6 @@ import com.achui.crawler.spider.core.Request;
 import com.achui.crawler.spider.core.Spider;
 import com.achui.crawler.spider.core.SpiderPage;
 import com.achui.crawler.spider.core.downloader.HtmlunitDownloader;
-import com.achui.crawler.spider.core.pipeline.ConsoleOutputPipeline;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -18,6 +17,7 @@ import java.util.logging.Level;
  * @date 2021/5/19 16:08
  */
 public class BiqugeProcessor extends AbstractPageProcessor {
+    public final static String HOST = "https://m.shuquge.com";
     @Override
     public void login(SpiderPage page) throws Exception {
 
@@ -28,15 +28,16 @@ public class BiqugeProcessor extends AbstractPageProcessor {
         WebClient webClient = page.getWebClient();
         int offset = 1;
         while (true) {
-            String url = "https://m.shuquge.com/store/allvisit-" + offset + ".html";
+            String url = HOST + "/store/allvisit-" + offset + ".html";
             HtmlPage content = webClient.getPage(url);
             List<DomElement> list = content.getByXPath("//p[@class='line']");
             for (DomElement doc : list) {
                 String detailPage = ((DomElement) doc.getFirstByXPath("a[@class='blue']")).getAttribute("href");
                 Request nextRequest = new Request();
-                nextRequest.setUrl("https://m.shuquge.com" + detailPage);
+                nextRequest.setUrl(HOST + detailPage);
                 nextRequest.setPageHandler(new BiqugeDetailHandler());
                 super.getRequestQueue().offer(nextRequest);
+                break;
             }
             offset += 1;
             if (offset >= 1) {

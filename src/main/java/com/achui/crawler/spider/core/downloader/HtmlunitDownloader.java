@@ -4,7 +4,6 @@ import com.achui.crawler.spider.core.Request;
 import com.achui.crawler.spider.core.SpiderPage;
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
-import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.WebClient;
 
 /**
@@ -37,6 +36,7 @@ public class HtmlunitDownloader implements Downloader {
         WebClient webClient = getWebClient(false);
         SpiderPage spiderPage = new SpiderPage();
         spiderPage.setWebClient(webClient);
+        spiderPage.setMetaData(request.getMetaData());
         spiderPage.setUrl(request.getUrl());
         return spiderPage;
     }

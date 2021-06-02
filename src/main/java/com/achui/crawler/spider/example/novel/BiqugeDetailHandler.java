@@ -1,6 +1,7 @@
 package com.achui.crawler.spider.example.novel;
 
 import com.achui.crawler.spider.core.PageHandler;
+import com.achui.crawler.spider.core.Request;
 import com.achui.crawler.spider.core.RequestItem;
 import com.achui.crawler.spider.core.SpiderPage;
 import com.achui.crawler.spider.example.novel.domain.NovelMetaData;
@@ -22,7 +23,6 @@ import java.util.Set;
 public class BiqugeDetailHandler implements PageHandler {
     private Queue requests = Lists.newLinkedList();
     private Set<String> chapters = new HashSet<>();
-    private final static String HOST = "https://m.shuquge.com";
 
     @Override
     public RequestItem handle(SpiderPage page) throws Exception {
@@ -36,13 +36,20 @@ public class BiqugeDetailHandler implements PageHandler {
 
         String nextPageLink = ((DomElement) htmlPage.getFirstByXPath("//span[@class='right']/a")).getAttribute("href");
         while (StringUtils.isNotEmpty(nextPageLink)) {
-            nextPage = webClient.getPage(HOST + nextPageLink);
+            nextPage = webClient.getPage(BiqugeProcessor.HOST + nextPageLink);
             chapters.addAll(processNovelDirectory(nextPage));
             nextPageLink = ((DomElement) nextPage.getFirstByXPath("//span[@class='right']/a")).getAttribute("href");
         }
-        metaData.setChapters(chapters);
+        metaData.setChapterLinks(chapters);
         RequestItem requestItem = new RequestItem();
         requestItem.put("novel", metaData);
+        for (String chapter : chapters) {
+            Request nextRequest = new Request();
+            nextRequest.setUrl("https://m.shuquge.com" + chapter);
+            nextRequest.setPageHandler(new BiqugeContentHandler());
+            nextRequest.setMetaData(metaData);
+            this.requests.offer(nextRequest);
+        }
         System.out.println("setsize:" + chapters.size());
         return requestItem;
     }
@@ -56,6 +63,7 @@ public class BiqugeDetailHandler implements PageHandler {
             String title = ((DomElement) doc.getFirstByXPath("a")).getTextContent();
             System.out.println(title + ":" + chapterLink);
             chapterLinks.add(chapterLink);
+            break;
         }
         return chapterLinks;
     }

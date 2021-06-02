@@ -23,5 +23,6 @@ public class NovelMetaData {
     private String status;
     private String lastUpdate;
     @ToString.Include
-    private Set<String> chapters;
+    private Set<String> chapterLinks;
+    private Set<Chapter> chapters;
 }

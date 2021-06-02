@@ -1,7 +1,5 @@
 package com.achui.crawler.spider.core;
 
-import com.achui.crawler.spider.core.RequestItem;
-import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.google.common.collect.Lists;
 import lombok.Getter;
@@ -19,6 +17,9 @@ public class SpiderPage {
     @Setter
     private String url;
     private RequestItem requestItem = new RequestItem();
+    @Setter
+    @Getter
+    private Object metaData;
     private List<RequestItem> itemList = Lists.newArrayList();
     /**
      * Used for selenium engine
@@ -34,7 +35,7 @@ public class SpiderPage {
     private WebClient webClient;
     private boolean pagination;
 
-    public void putField(String key, String field) {
+    public void putField(String key, Object field) {
         this.requestItem.put(key, field);
     }
 
